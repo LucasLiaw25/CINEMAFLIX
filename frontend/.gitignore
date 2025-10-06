@@ -1,0 +1,54 @@
+--------------------------------------------------------------------------------------------------
+Arquivo .gitignore para Projetos Angular
+Este arquivo garante que apenas o código-fonte seja commitado, ignorando build outputs e caches.
+--------------------------------------------------------------------------------------------------
+1. Dependências
+Ignora o diretório onde o npm/yarn armazena todas as dependências do projeto.
+/node_modules
+
+2. Build Outputs (Saídas de Compilação)
+O Angular CLI gera a aplicação final dentro de 'dist' (ou 'build').
+/dist
+/build
+
+3. Cache da Ferramenta Angular CLI
+Ignora arquivos de cache de metadados e compilação rápida.
+/.angular/cache
+.angular/
+
+4. Logs e Erros
+Ignora quaisquer arquivos de log gerados durante a execução ou erros.
+*.log
+
+5. Variáveis de Ambiente (Segurança)
+Ignora arquivos de ambiente local que podem conter chaves privadas ou tokens.
+Manter apenas os templates seguros (ex: environment.ts).
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+
+6. Arquivos de Testes
+Ignora os resultados da cobertura de testes.
+/coverage
+/e2e/
+
+7. Arquivos Temporários de Sistema Operacional
+Ignora arquivos temporários do macOS e Windows.
+.DS_Store
+Thumbs.db
+
+8. Configurações de IDEs Comuns
+Ignora pastas de configuração de ambientes de desenvolvimento (como VS Code, WebStorm).
+VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/cSpell.json
+
+WebStorm / IntelliJ
+.idea/
+
+Outras
+*.sublime-workspace
+*.lock

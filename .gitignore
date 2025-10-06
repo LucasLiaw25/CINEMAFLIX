@@ -1,33 +1,64 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+-------------------------------------------------------------------------
+ARQUIVO .GITIGNORE MESTRE (FULL STACK)
+Coloque este arquivo na RAIZ do seu repositório.
+Ignora caches, dependências e artefatos de build do Spring/Maven e Angular/Node.
+-------------------------------------------------------------------------
+=========================================================================
+1. FRONTEND (Angular / Node.js)
+Ignora tudo dentro da pasta 'frontend/'
+=========================================================================
+Dependências do Node (necessárias para rodar, mas não para o Git)
+/frontend/node_modules
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+Saídas de Build e Produção do Angular
+/frontend/dist
+/frontend/build
+/frontend/out
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+Cache e logs
+/frontend/.angular/cache
+/frontend/.angular/cli/
+/frontend/npm-debug.log*
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+Cobertura de Testes
+/frontend/coverage
 
-### VS Code ###
-.vscode/
+Arquivos de variáveis de ambiente locais/secrets
+Mantenha apenas os templates (ex: environment.ts)
+/frontend/src/environments/environment*.ts
+
+=========================================================================
+2. BACKEND (Spring Boot / Maven)
+Ignora tudo dentro da pasta 'backend/'
+=========================================================================
+Saídas de Build e compilação do Maven
+/backend/target/
+
+Arquivos de classes e resultados compilados
+/backend/**/*.class
+
+Arquivos de log e cache de testes
+/backend/*.log
+/backend/log/
+/backend/bin/
+
+=========================================================================
+3. AMBIENTE E IDEs (IntelliJ, VS Code)
+Ignora arquivos gerados pela sua IDE em qualquer lugar do projeto
+=========================================================================
+IntelliJ IDEA (o que estava na sua pasta '.idea')
+**/.idea/
+**/.iml
+**/.iws
+**/*.ipr
+
+VS Code
+**/.vscode/
+
+Arquivos temporários do Sistema Operacional
+**/.DS_Store
+**/Thumbs.db
+
+Arquivos de Configuração de Segurança Local
+.env
+.env.
