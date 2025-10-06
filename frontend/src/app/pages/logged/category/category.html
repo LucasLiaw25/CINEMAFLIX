@@ -1,0 +1,100 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<app-header></app-header>
+<div class="category-page-wrapper">
+    <header class="category-header">
+        <button class="back-button" (click)="goBack()">
+            <i class="fas fa-arrow-left"></i> Voltar para Home
+        </button>
+        
+        <div class="category-info" *ngIf="category">
+            <h1 class="category-title">{{ category.name }}</h1>
+            <p class="movies-count">{{ movies.length }} filme{{ movies.length !== 1 ? 's' : '' }} encontrado{{ movies.length !== 1 ? 's' : '' }}</p>
+            <p class="movies-count">{{ series.length }} séries{{ series.length !== 1 ? 's' : '' }} encontrado{{ series.length !== 1 ? 's' : '' }}</p>
+        </div>
+        
+        <div class="category-info" *ngIf="!category && loading">
+            <h1 class="category-title">Carregando...</h1>
+        </div>
+    </header>
+
+    <div *ngIf="errorMessage" class="error-message-bar">
+        <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+    </div>
+
+    <div *ngIf="loading" class="text-center loading-full-page">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <p class="mt-2">Carregando filmes da categoria...</p>
+    </div>
+
+    <section class="movies-section" *ngIf="!loading && movies.length > 0">
+        <div class="content-section">
+            <h2>Filmes Disponíveis</h2>
+            <div class="movie-carousel-scroll">
+                <app-card [id]="movie.id" [isInWatchlist]="movie.isWatchlisted"
+                    *ngFor="let movie of movies"
+                    [id]="movie.id"
+                    [title]="movie.title"
+                    [description]="movie.description"
+                    [duration]="movie.duration"
+                    [rating]="movie.rating"
+                    [age_rating]="movie.age_rating"
+                    [top10]="movie.top10"
+                    [isInWatchlist]="movie.isWatchlisted"> 
+                </app-card>
+            </div>
+        </div>
+    </section>
+
+    <section class="movies-section" *ngIf="!loading && movies.length > 0">
+        <div class="content-section">
+            <h2>Séries Disponíveis</h2>
+            <div class="movie-carousel-scroll">
+                <app-serie-card
+                    *ngFor="let serie of series"
+                    [id]="serie.id"
+                    [title]="serie.title"
+                    [description]="serie.description"
+                    [duration]="serie.duration || 45"
+                    [rating]="serie.rating"
+                    [age_rating]="serie.age_rating"
+                    [episode]="serie.episode"
+                    [season]="serie.season"
+                    [top10]="serie.top10"
+                    [isInWatchlist]="serie.isInWatchlist">
+                </app-serie-card>
+            </div>
+        </div>
+    </section>
+
+    <section class="no-movies-section" *ngIf="!loading && movies.length === 0 && category">
+        <div class="no-movies-message">
+            <i class="fas fa-film fa-4x"></i>
+            <h2>Nenhum filme encontrado</h2>
+            <p>Não há filmes na categoria "{{ category.name }}" no momento.</p>
+            <button class="cta-button" (click)="goBack()">
+                <i class="fas fa-home"></i> Voltar para Home
+            </button>
+        </div>
+    </section>
+
+    <section class="related-categories" *ngIf="categories.length > 0">
+        <div class="content-section">
+            <h2>Outras Categorias</h2>
+            <div class="categories-grid">
+                <button 
+                    *ngFor="let cat of categories" 
+                    class="category-card"
+                    (click)="onCategorySelect(cat)"
+                    [class.current]="category?.id === cat.id">
+                    <div class="category-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <span class="category-name">{{ cat.name }}</span>
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

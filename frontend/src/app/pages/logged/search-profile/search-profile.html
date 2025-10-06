@@ -1,0 +1,71 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<app-header></app-header>
+<div class="min-h-screen bg-gray-900 profile-container">
+    <h1 class="welcome-title">Perfil {{profile.username}} </h1>
+    <p class="welcome-subtitle">
+        Informações e preferências de entretenimento salvas.
+    </p>
+
+    <div class="view-card">
+        <div *ngIf="isLoading" class="text-center p-8">
+            <div class="spinner"></div>
+            <p class="mt-4 text-red-400">Carregando dados do perfil...</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+
+        <div class="data-grid" *ngIf="!isLoading && !errorMessage">
+            <div class="section-title">Informações Pessoais</div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Nome:</span>
+                <span class="detail-value">{{ profile.name || 'Não especificado' }}</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Nome de usuario:</span>
+                <span class="detail-value">{{ profile.username || 'Não especificado' }}</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Localização:</span>
+                <span class="detail-value">{{ profile.location || 'Não especificado' }}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Idade:</span>
+                <span class="detail-value">{{ profile.age || 'Não especificado' }}</span>
+            </div>
+            
+            <div class="detail-item full-width">
+                <span class="detail-label">Biografia:</span>
+                <p class="detail-value bio-text">{{ profile.bio || 'Nenhuma biografia disponível.' }}</p>
+            </div>
+  
+            <div class="section-title border-top">Preferências de Mídia</div>
+
+            <div class="detail-item">
+                <span class="detail-label">Filme Favorito:</span>
+                <span class="detail-value">{{ profile.favoriteMovie || 'Nenhum filme definido' }}</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Série Favorita:</span>
+                <span class="detail-value">{{ profile.favoriteSerie || 'Nenhuma série definida' }}</span>
+            </div>
+
+            <div class="full-width pt-6">
+                <button (click)="navigateToUser()" class="edit-button">
+                    Postados
+                </button>
+            </div>  
+
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

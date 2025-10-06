@@ -1,0 +1,43 @@
+<header class="main-header">
+    <div class="header-content">
+        <a [routerLink]="['/home']" ><h1 class="logo">CinemaFlix</h1></a>
+
+        <button 
+            class="menu-toggle" 
+            (click)="toggleMenu()"
+            *ngIf="isMobile" 
+            aria-label="Abrir menu"
+        >
+            <i 
+                class="fas" 
+                [class.fa-bars]="!isMenuOpen" 
+                [class.fa-times]="isMenuOpen"
+            ></i>
+        </button>
+
+        <nav class="main-nav" [class.active]="isMenuOpen">
+            <ul>
+                <li><a [routerLink]="['/home']" class="active" (click)="closeMenu()">Início</a></li>
+                <li><a [routerLink]="['/serie']" (click)="closeMenu()">Séries</a></li>
+                <li><a [routerLink]="['/movies']" (click)="closeMenu()">Filmes</a></li>
+                <li><a [routerLink]="['/top10']" (click)="closeMenu()">Top 10</a></li>
+                <li><a [routerLink]="['/save']" (click)="closeMenu()">Minha lista</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <div class="search-bar">
+                <input 
+                    type="text" 
+                    placeholder="Buscar filmes ou séries..."
+                    [(ngModel)]="searchTerm"
+                    (keyup.enter)="performSearch()"
+                >
+                
+                <i class="fas fa-search search-icon" (click)="performSearch()"></i>
+            </div>
+            
+            <a [routerLink]="['/profile']" class="create-movie-link">Perfil</a>
+        </div>
+    </div>
+</header>

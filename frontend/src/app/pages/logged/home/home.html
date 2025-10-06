@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaFlix - Início</title>
+    <link rel="stylesheet" href="home.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <app-header></app-header>
+
+    <main class="content-grid-container">
+    <h2>Filmes em Destaque</h2>
+    <div *ngIf="loading" class="text-center text-white">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2">Carregando filmes...</p>
+    </div>
+    
+    <div class="movie-grid">
+        <app-card [id]="movie.id" [isInWatchlist]="movie.isWatchlisted"
+            *ngFor="let movie of movies"
+            [id]="movie.id"
+            [title]="movie.title"
+            [description]="movie.description"
+            [duration]="movie.duration"
+            [rating]="movie.rating"
+            [age_rating]="movie.age_rating"
+            [top10]="movie.top10"
+            [isInWatchlist]="movie.isWatchlisted"> 
+        </app-card>
+    </div>
+    <div class="pagination-controls d-flex justify-content-center align-items-center my-4">
+    <button 
+        (click)="goToPreviousPage()" 
+        [disabled]="currentPage === 0 || loading"
+        class="btn btn-secondary me-3">
+        &laquo; Anterior
+    </button>
+    
+    <span class="page-info me-3">
+        Página {{ currentPage + 1 }} de {{ totalPages }} ({{ totalItems }} filmes)
+    </span>
+
+    <button 
+        (click)="goToNextPage()" 
+        [disabled]="currentPage === totalPages - 1 || loading"
+        class="btn btn-secondary">
+        Próxima &raquo;
+    </button>
+</div>
+</main>
+
+   <app-footer></app-footer>
+</body>
+</html>

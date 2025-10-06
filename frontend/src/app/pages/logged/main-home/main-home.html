@@ -1,0 +1,103 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<app-header></app-header>
+<main class="home-dashboard-wrapper">
+    <section class="welcome-banner">
+        <div class="banner-content">
+            <h1 class="welcome-title">Olá {{username}}!</h1>
+            <p class="welcome-subtitle">
+                Seu universo de filmes e séries espera por você.
+            </p>
+            <button class="cta-button" (click)="continueWatching()">
+                <i class="fas fa-play-circle mr-2"></i> Crie um Filme
+            </button>
+            <button style="margin-left: 1rem;" class="cta-button" (click)="continueWatching2()">
+                <i class="fas fa-play-circle mr-2"></i> Crie uma série
+            </button>
+        </div>
+    </section>
+
+    <div *ngIf="errorMessage" class="error-message-bar">
+        <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+    </div>
+
+    <section class="categories-section" *ngIf="categories.length > 0">
+        <div class="content-section">
+            <h2>Explorar por Categoria</h2>
+            <div class="categories-grid">
+                <a 
+                    *ngFor="let category of categories" 
+                    class="category-card"
+                    [routerLink]="['/category', category.id]">
+                    <div class="category-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <span class="category-name">{{ category.name }}</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="streamings-section" *ngIf="streamings.length > 0">
+        <div class="content-section">
+            <h2>Explorar por Streaming</h2>
+            <div class="streamings-grid">
+                <a 
+                    *ngFor="let streaming of streamings" 
+                    class="streaming-card"
+                    [routerLink]="['/streaming', streaming.id]">
+                    <div class="streaming-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <span class="streaming-name">{{ streaming.name }}</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-wrapper">
+        <div *ngIf="loading && movies.length === 0" class="text-center loading-full-page">
+            <i class="fas fa-spinner fa-spin fa-3x"></i>
+            <p class="mt-2">Carregando conteúdo...</p>
+        </div>
+
+        <section class="content-section" *ngIf="movies.length > 0 && !loading">
+            <h2>Filmes em Destaque</h2>
+            <div class="movie-carousel-scroll">
+                <app-card [id]="movie.id" [isInWatchlist]="movie.isWatchlisted"
+                    *ngFor="let movie of movies"
+                    [id]="movie.id"
+                    [title]="movie.title"
+                    [description]="movie.description"
+                    [duration]="movie.duration"
+                    [rating]="movie.rating"
+                    [age_rating]="movie.age_rating"
+                    [top10]="movie.top10"
+                    [isInWatchlist]="movie.isWatchlisted"
+                    [user]="movie.user"> 
+                </app-card>
+            </div>
+        </section>
+
+        <section class="content-section" *ngIf="series.length > 0">
+            <h2>Séries Mais Populares</h2>
+            <div class="movie-carousel-scroll">
+                <app-serie-card
+                *ngFor="let serie of series"
+                [id]="serie.id"
+                [title]="serie.title"
+                [description]="serie.description"
+                [duration]="serie.duration || 45"
+                [rating]="serie.rating"
+                [age_rating]="serie.age_rating"
+                [episode]="serie.episode"
+                [season]="serie.season"
+                [top10]="serie.top10"
+                [isInWatchlist]="serie.isInWatchlist"> 
+            </app-serie-card>
+            </div>
+        </section>
+    </div>
+</main>
+<app-footer></app-footer>

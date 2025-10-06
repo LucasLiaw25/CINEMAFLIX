@@ -1,0 +1,27 @@
+<div class="serie-card" [class.top-10-card]="top10">
+    <div class="card-info">
+        <a *ngIf="id !== null" (click)="navigateToMovie()" class="card-title-link">
+            <h3 class="card-title">{{title }}</h3>
+        </a>
+        <h3 *ngIf="id === null" class="card-title">{{title }}</h3>
+        <p class="card-description">{{ description }}</p>
+        
+        <div class="card-details">
+            <span class="season-episode">T{{ season }} • E{{ episode }}</span>
+        </div>
+
+        <div class="card-meta">
+            <span class="age-rating" [class.age-14]="age_rating === 14" 
+                                  [class.age-16]="age_rating === 16" 
+                                  [class.age-18]="age_rating === 18">{{ age_rating }}+</span>
+            <span class="rating"><i class="fas fa-star"></i>{{ rating }}%</span>
+            <span class="duration">{{ duration }} min</span>
+            <button class="watchlist-toggle-btn" (click)="toggleWatchlist()" 
+                [attr.aria-label]="isInWatchlist ? 'Remover da Lista' : 'Adicionar à Lista'">
+                <i *ngIf="!isInWatchlist" class="fas fa-plus"></i> 
+                <i *ngIf="isInWatchlist" class="fas fa-check"></i> 
+            </button>
+        </div>
+    </div>
+</div>
+

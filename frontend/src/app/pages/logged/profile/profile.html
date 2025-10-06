@@ -1,0 +1,80 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<app-header></app-header>
+
+<div class="min-h-screen bg-gray-900 profile-container">
+    <h1 class="welcome-title">Meu Perfil</h1>
+    <p class="welcome-subtitle">
+        Visualize e edite suas informações de usuário.
+    </p>
+
+    <div class="form-card">
+
+        <div *ngIf="isLoading" class="text-center p-8">
+            <div class="spinner"></div>
+            <p class="mt-4 text-red-400">Carregando dados...</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
+        </div>
+
+        <div class="space-y-6" *ngIf="!isLoading">
+
+            <div class="grid-responsive">
+                <div class="col-span-2-sm">
+                    <label for="bio">Biografia</label>
+                    <textarea id="bio" [(ngModel)]="profile.bio" rows="3" class="form-input" placeholder="Fale um pouco sobre você"></textarea>
+                </div>
+
+                <div>
+                    <label for="age">Idade</label>
+                    <input type="number" id="age" [(ngModel)]="profile.age" class="form-input"
+                        placeholder="Sua idade">
+                </div>
+
+                
+            </div>
+
+            <div>
+                <label for="location">Localização</label>
+                <input type="text" id="location" [(ngModel)]="profile.location" class="form-input"
+                    placeholder="Sua cidade, país">
+            </div>
+
+            <div class="grid-responsive border-top-section">
+    
+                <div>
+                    <label for="favoriteMovie">Filme Favorito</label>
+                    <input type="text" id="favoriteMovie" [(ngModel)]="profile.favoriteMovie" class="form-input"
+                        placeholder="Ex: O Poderoso Chefão">
+                </div>
+
+                <div>
+                    <label for="favoriteSerie">Série Favorita</label>
+                    <input type="text" id="favoriteSerie" [(ngModel)]="profile.favoriteSerie" class="form-input"
+                        placeholder="Ex: Stranger Things">
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" 
+                    (click)="saveProfile()"
+                    [disabled]="isSaving"
+                    class="action-button save-button">
+                    <span *ngIf="!isSaving">Salvar Perfil</span>
+                    <div *ngIf="isSaving" class="saving-container">
+                        <div class="spinner saving-spinner"></div>
+                        Salvando...
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

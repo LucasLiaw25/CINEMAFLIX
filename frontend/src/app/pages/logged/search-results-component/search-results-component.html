@@ -1,0 +1,67 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <app-header></app-header>
+
+    <main class="content-grid-container">
+        <h1>Resultados da Pesquisa: "{{ searchTerm }}"</h1>
+
+        <div *ngIf="loading" class="text-center text-white loading-message">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-2">Buscando conteúdo...</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="text-center text-white error-message">
+            <p>{{ errorMessage }}</p>
+        </div>
+
+        <div *ngIf="!loading && !errorMessage">
+
+            <section *ngIf="movies.length > 0" class="results-section">
+                <h2>Filmes ({{ movies.length }})</h2>
+                <div class="movie-grid">
+                    <app-card [id]="movie.id" [isInWatchlist]="movie.isWatchlisted"
+                        *ngFor="let movie of movies"
+                        [id]="movie.id"
+                        [title]="movie.title"
+                        [description]="movie.description"
+                        [duration]="movie.duration"
+                        [rating]="movie.rating"
+                        [age_rating]="movie.age_rating"
+                        [top10]="movie.top10"
+                        [isInWatchlist]="movie.isWatchlisted"> 
+                    </app-card>
+                </div>
+            </section>
+
+            <section *ngIf="series.length > 0" class="results-section">
+                <h2>Séries ({{ series.length }})</h2>
+                <div class="movie-grid">
+                    <app-serie-card
+                        *ngFor="let serie of series"
+                        [id]="serie.id"
+                        [title]="serie.title"
+                        [description]="serie.description"
+                        [duration]="serie.duration || 45"
+                        [rating]="serie.rating"
+                        [age_rating]="serie.age_rating"
+                        [episode]="serie.episode"
+                        [season]="serie.season"
+                        [top10]="serie.top10"
+                        [isInWatchlist]="serie.isInWatchlist">
+                    </app-serie-card>
+                </div>
+            </section>
+
+            <div *ngIf="movies.length === 0 && series.length === 0" class="no-results-message">
+                <p>😔 Não encontramos nenhum conteúdo que corresponda a "{{ searchTerm }}".</p>
+                <p class="text-muted">Tente buscar por um termo diferente.</p>
+            </div>
+        </div>
+    </main>
+
+    <app-footer></app-footer>
+</body>

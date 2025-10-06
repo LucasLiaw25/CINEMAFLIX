@@ -1,0 +1,68 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <app-header></app-header>
+
+<main class="content-grid-container">
+    <h1>Seus filmes salvos</h1>
+    
+    <div *ngIf="loading" class="text-center text-white">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2">Carregando filmes...</p>
+    </div>
+    
+    <div *ngIf="errorMessage" class="text-center text-white">
+        <p>{{ errorMessage }}</p>
+    </div>
+
+    <div class="movies-grid" *ngIf="!loading && !errorMessage">
+        <app-card 
+            *ngFor="let movie of movies"
+            [id]="movie.id"
+            [title]="movie.title"
+            [description]="movie.description"
+            [duration]="movie.duration"
+            [rating]="movie.rating"
+            [age_rating]="movie.age_rating"
+            [top10]="movie.top10"
+            [isInWatchlist]="movie.isWatchlisted"> 
+        </app-card>
+    </div>
+</main>
+
+<main class="content-grid-container">
+    <h1>Suas séries salvas</h1>
+    
+    <div *ngIf="loading" class="text-center text-white">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2">Carregando filmes...</p>
+    </div>
+    
+    <div *ngIf="errorMessage" class="text-center text-white">
+        <p>{{ errorMessage }}</p>
+    </div>
+
+    <div class="movies-grid" *ngIf="!loading && !errorMessage">
+        <app-serie-card
+            *ngFor="let serie of series"
+            [id]="serie.id"
+            [title]="serie.title"
+            [description]="serie.description"
+            [duration]="serie.duration || 45"
+            [rating]="serie.rating"
+            [age_rating]="serie.age_rating"
+            [episode]="serie.episode"
+            [season]="serie.season"
+            [top10]="serie.top10"
+            [isInWatchlist]="serie.isInWatchlist">
+        </app-serie-card>
+    </div>
+</main>
+
+<app-footer></app-footer>
+</body>

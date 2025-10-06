@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+:root {
+    --primary-color: #E50914; 
+    --secondary-color: #8A2BE2; 
+    --dark-bg: #141414;
+    --header-bg: rgba(20, 20, 20, 0.9); 
+    --card-bg: #222;
+    --text-color: #FFFFFF;
+    --text-muted: #8c8c8c;
+    --age-free: #38a169;
+    --age-14: #f6e05e;
+    --age-18: #e53e3e;
+    --rating-star: #ffc107;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    padding-top: 70px;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.category-page-wrapper {
+    padding-top: 80px;
+    min-height: 100vh;
+    background-color: var(--dark-bg);
+}
+
+.category-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 60px 4%;
+    margin-bottom: 40px;
+    position: relative;
+    text-align: center;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-5px);
+}
+
+.category-info {
+    text-align: center;
+}
+
+.category-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.movies-count {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.movies-section {
+    max-width: 1400px;
+    margin: 0 auto 60px;
+}
+
+.content-section {
+    padding: 0 4%; 
+}
+
+.content-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    border-left: 5px solid var(--secondary-color);
+    padding-left: 15px;
+}
+
+.movie-carousel-scroll {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+    overflow-x: hidden; 
+    padding: 20px 0;
+    padding-bottom: 30px;
+    scroll-behavior: initial;
+    -ms-overflow-style: initial;
+    scrollbar-width: initial;
+}
+
+.movie-carousel-scroll::-webkit-scrollbar {
+    display: initial; 
+}
+
+.movie-carousel-scroll app-card {
+    width: 100%;
+    white-space: normal;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-carousel-scroll app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.related-categories {
+    background-color: var(--card-bg);
+    padding: 60px 0;
+    margin-top: 40px;
+}
+
+.related-categories .content-section h2 {
+    border-left: 5px solid var(--primary-color);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0 4%;
+}
+
+.category-card {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 30px 20px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.category-card.current {
+    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+    transform: scale(1.05);
+}
+
+.category-icon {
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+.category-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.no-movies-section {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.no-movies-message i {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.no-movies-message h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.no-movies-message p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.error-message-bar {
+    background: linear-gradient(135deg, #e53e3e 0%, #f56565 100%);
+    color: white;
+    padding: 15px 20px;
+    margin: 20px 4%;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.loading-full-page {
+    padding: 80px 20px;
+    color: var(--text-muted);
+}
+
+.loading-full-page i {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+@media (max-width: 1100px) {
+    .movie-carousel-scroll {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px;
+    }
+}
+@media (max-width: 768px) {
+    .category-header {
+        padding: 40px 4%;
+    }
+    
+    .category-title {
+        font-size: 2.5rem;
+    }
+
+    .movie-carousel-scroll {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+        padding: 15px 0;
+    }
+    
+    .categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-title {
+        font-size: 2rem;
+    }
+    
+    .content-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+}

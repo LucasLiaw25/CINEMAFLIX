@@ -1,0 +1,106 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<app-header></app-header>
+
+<div class="streaming-page-wrapper">
+
+    <header class="streaming-header">
+        <button class="back-button" (click)="goBack()">
+            <i class="fas fa-arrow-left"></i> Voltar para Home
+        </button>
+
+        <div class="streaming-info" *ngIf="streaming">
+            <h1 class="streaming-title">{{ streaming.name }}</h1>
+            <p class="movies-count">{{ movies.length }} filme{{ movies.length !== 1 ? 's' : '' }} e {{ series.length }} série{{ series.length !== 1 ? 's' : '' }} encontrado{{ (movies.length + series.length) !== 1 ? 's' : '' }}</p>
+        </div>
+
+        <div class="streaming-info" *ngIf="!streaming && loading">
+            <h1 class="streaming-title">Carregando...</h1>
+        </div>
+    </header>
+
+    <div *ngIf="errorMessage" class="error-message-bar">
+        <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+    </div>
+
+    <div *ngIf="loading" class="text-center loading-full-page">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+        <p class="mt-2">Carregando filmes e séries do streaming...</p>
+    </div>
+
+    <section class="movies-section" *ngIf="!loading && movies.length > 0">
+        <div class="content-section">
+            <h2>Filmes Disponíveis</h2>
+            <div class="movie-carousel-scroll">
+                <app-card [id]="movie.id" [isInWatchlist]="movie.isWatchlisted"
+                    *ngFor="let movie of movies"
+                    [id]="movie.id"
+                    [title]="movie.title"
+                    [description]="movie.description"
+                    [duration]="movie.duration"
+                    [rating]="movie.rating"
+                    [age_rating]="movie.age_rating"
+                    [top10]="movie.top10"
+                    [isInWatchlist]="movie.isWatchlisted"> 
+                </app-card>
+            </div>
+        </div>
+    </section>
+
+    <section class="series-section" *ngIf="!loading && series.length > 0"> <!-- CORRIGIDO AQUI -->
+        <div class="content-section">
+            <h2>Séries Disponíveis</h2>
+            <div class="movie-carousel-scroll">
+                <app-serie-card
+                *ngFor="let serie of series"
+                [id]="serie.id"
+                [title]="serie.title"
+                [description]="serie.description"
+                [duration]="serie.duration || 45"
+                [rating]="serie.rating"
+                [age_rating]="serie.age_rating"
+                [episode]="serie.episode"
+                [season]="serie.season"
+                [top10]="serie.top10"
+                [isInWatchlist]="serie.isInWatchlist">
+            </app-serie-card>
+            </div>
+        </div>
+    </section>
+
+    <section class="no-movies-section" *ngIf="!loading && movies.length === 0 && series.length === 0 && streaming"> <!-- CORRIGIDO AQUI -->
+        <div class="no-movies-message">
+            <i class="fas fa-film fa-4x"></i>
+            <h2>Nenhum filme ou série encontrado</h2>
+            <p>Não há filmes ou série no streaming "{{ streaming.name }}" no momento.</p>
+
+            <button class="cta-button" (click)="goBack()">
+                <i class="fas fa-home"></i> Voltar para Home
+            </button>
+        </div>
+    </section>
+
+
+
+    <section class="related-streamings" *ngIf="streamings.length > 0">
+        <div class="content-section">
+            <h2>Outros Streamings</h2>
+            <div class="streamings-grid">
+                <button
+                    *ngFor="let str of streamings"
+                    class="streaming-card"
+                    (click)="onStreamingSelect(str)"
+                    [class.current]="streaming?.id === str.id">
+
+                    <div class="streaming-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <span class="streaming-name">{{ str.name }}</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaFlix - Séries</title>
+    <link rel="stylesheet" href="serie.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <app-header></app-header>
+
+    <main class="content-grid-container">
+        <h1>Séries em Destaque</h1>
+        
+        <div *ngIf="loading" class="text-center text-white">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-2">Carregando séries...</p>
+        </div>
+        
+        <div class="series-grid">
+            <app-serie-card
+                *ngFor="let serie of series"
+                [id]="serie.id"
+                [title]="serie.title"
+                [description]="serie.description"
+                [duration]="serie.duration || 45"
+                [rating]="serie.rating"
+                [age_rating]="serie.age_rating"
+                [episode]="serie.episode"
+                [season]="serie.season"
+                [top10]="serie.top10"
+                [isInWatchlist]="serie.isInWatchlist">
+            </app-serie-card>
+        </div>
+            <div class="pagination-controls d-flex justify-content-center align-items-center my-4">
+            <button 
+                (click)="goToPreviousPage()" 
+                [disabled]="currentPage === 0 || loading"
+                class="btn btn-secondary me-3">
+                &laquo; Anterior
+            </button>
+            
+            <span class="page-info me-3">
+                Página {{ currentPage + 1 }} de {{ totalPages }} ({{ totalItems }} filmes)
+            </span>
+
+            <button 
+                (click)="goToNextPage()" 
+                [disabled]="currentPage === totalPages - 1 || loading"
+                class="btn btn-secondary">
+                Próxima &raquo;
+            </button>
+        </div>
+    </main>
+
+   <app-footer></app-footer>
+</body>
+</html>

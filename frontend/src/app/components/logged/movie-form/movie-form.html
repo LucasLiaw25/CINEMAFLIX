@@ -1,0 +1,146 @@
+<main class="content-grid-container">
+  <div class="form-wrapper">
+    <form (ngSubmit)="onSubmit()" [formGroup]="movieForm" class="movie-creation-form">
+      
+      <div *ngIf="errorMessage" class="form-message error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="form-message success-message">{{ successMessage }}</div>
+
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input type="text" id="title" formControlName="title" required placeholder="Ex: A Origem">
+        <div *ngIf="movieForm.get('title')?.invalid && movieForm.get('title')?.touched" class="validation-error">
+          Título é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <textarea id="description" formControlName="description" required rows="4" placeholder="Breve resumo da trama..."></textarea>
+        <div *ngIf="movieForm.get('description')?.invalid && movieForm.get('description')?.touched" class="validation-error">
+          A descrição é obrigatória.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="synopsis">Sinopse</label>
+        <textarea id="synopsis" formControlName="synopsis" required rows="4" placeholder="Sinopse detalhada da trama..."></textarea>
+        <div *ngIf="movieForm.get('synopsis')?.invalid && movieForm.get('synopsis')?.touched" class="validation-error">
+          A sinopse é obrigatória.
+        </div>
+      </div>
+
+      <div class="grid-group">
+        <div class="form-group">
+          <label for="duration">Duração (minutos)</label>
+          <input type="number" id="duration" formControlName="duration" required min="1" placeholder="Ex: 150">
+          <div *ngIf="movieForm.get('duration')?.invalid && movieForm.get('duration')?.touched" class="validation-error">
+            Duração é obrigatória e deve ser positiva.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rating">Avaliação (1-100)</label>
+          <input type="number" id="rating" formControlName="rating" required min="1" max="100" placeholder="Ex: 8.5" step="0.1">
+          <div *ngIf="movieForm.get('rating')?.invalid && movieForm.get('rating')?.touched" class="validation-error">
+            Rating é obrigatório (1-100).
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age_rating">Classificação Indicativa (+)</label>
+          <input type="number" id="age_rating" formControlName="age_rating" required min="0" max="18" placeholder="Ex: 16">
+          <div *ngIf="movieForm.get('age_rating')?.invalid && movieForm.get('age_rating')?.touched" class="validation-error">
+            Classificação é obrigatória (0-18).
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="publication_year">Ano de Publicação</label>
+          <input type="number" id="publication_year" formControlName="publication_year" required min="1800" max="2099" placeholder="Ex: 2024">
+          <div *ngIf="movieForm.get('publication_year')?.invalid && movieForm.get('publication_year')?.touched" class="validation-error">
+            Ano é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>Categorias <span class="required">*</span></label>
+        <div class="checkbox-grid">
+          <div *ngFor="let category of availableCategories" class="checkbox-item">
+            <input 
+              type="checkbox" 
+              [id]="'category_' + category.id" 
+              [value]="category.id" 
+              [checked]="isSelected(category.id, 'categories')"
+              (change)="onCheckboxChange($event, 'categories')">
+            <label [for]="'category_' + category.id">{{ category.name }}</label>
+          </div>
+        </div>
+        <div *ngIf="movieForm.get('categories')?.invalid && movieForm.get('categories')?.touched" class="validation-error">
+          {{ getArrayErrorMessage('categories') }}
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>Plataformas de Streaming <span class="required">*</span></label>
+        <div class="checkbox-grid">
+          <div *ngFor="let streaming of availableStreamings" class="checkbox-item">
+            <input 
+              type="checkbox" 
+              [id]="'streaming_' + streaming.id" 
+              [value]="streaming.id" 
+              [checked]="isSelected(streaming.id, 'streamings')"
+              (change)="onCheckboxChange($event, 'streamings')">
+            <label [for]="'streaming_' + streaming.id">{{ streaming.name }}</label>
+          </div>
+        </div>
+        <div *ngIf="movieForm.get('streamings')?.invalid && movieForm.get('streamings')?.touched" class="validation-error">
+          {{ getArrayErrorMessage('streamings') }}
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>Atores <span class="required">*</span></label>
+        <div class="checkbox-grid">
+          <div *ngFor="let actor of availableActors" class="checkbox-item">
+            <input 
+              type="checkbox" 
+              [id]="'actor_' + actor.id" 
+              [value]="actor.id" 
+              [checked]="isSelected(actor.id, 'actors')"
+              (change)="onCheckboxChange($event, 'actors')">
+            <label [for]="'actor_' + actor.id">{{ actor.name }}</label>
+          </div>
+        </div>
+        <div *ngIf="movieForm.get('actors')?.invalid && movieForm.get('actors')?.touched" class="validation-error">
+          {{ getArrayErrorMessage('actors') }}
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>Línguas Disponíveis <span class="required">*</span></label>
+        <div class="checkbox-grid">
+          <div *ngFor="let language of availableLanguages" class="checkbox-item">
+            <input 
+              type="checkbox" 
+              [id]="'language_' + language.id" 
+              [value]="language.id" 
+              [checked]="isSelected(language.id, 'languages')"
+              (change)="onCheckboxChange($event, 'languages')">
+            <label [for]="'language_' + language.id">{{ language.name }}</label>
+          </div>
+        </div>
+        <div *ngIf="movieForm.get('languages')?.invalid && movieForm.get('languages')?.touched" class="validation-error">
+          {{ getArrayErrorMessage('languages') }}
+        </div>
+      </div>
+
+
+      <button type="submit" class="submit-btn" [disabled]="movieForm.invalid || loading">
+        {{ loading ? 'Salvando...' : 'Salvar Filme' }}
+      </button>
+      
+      <div id="home-link"><a [routerLink]="['/home']">Voltar para home</a></div>
+    </form>
+  </div>
+</main>

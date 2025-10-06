@@ -1,0 +1,95 @@
+
+<div class="serie-detail-container">
+
+    <header class="detail-header">
+        <h1 class="detail-title">{{ title }}</h1>
+        <div class="detail-meta-group">
+            <span class="detail-rating">
+                <i class="fas fa-star"></i> {{ rating }}%
+            </span>
+            <span class="detail-age-rating" [ngClass]="{'age-14': age_rating >= 14, 'age-18': age_rating >= 18}">
+                +{{ age_rating }}
+            </span>
+            <span class="season-episode-info" *ngIf="season && episode">
+                Temporadas {{ season }} • Episódios {{ episode }}
+            </span>
+            <span class="season-episode-info" *ngIf="season && !episode">
+                Temporada {{ season }}
+            </span>
+
+            <p class="creator-info"> 
+                <i class="fa-solid fa-user"></i>
+                <a id="serie-user" 
+                *ngIf="user?.id" 
+                (click)="navigateToProfile()">
+                    <span>{{ user?.username }}</span>
+                </a>
+                <span *ngIf="!user?.id">Usuário não disponível</span>
+            </p>
+        </div>
+        
+        <span *ngIf="top10" class="top-10-badge">TOP 10 HOJE</span>
+    </header>
+
+    <section class="description-section">
+        <p class="detail-description">{{ description }}</p>
+        
+        <h2>Sinopse Completa</h2>
+        
+        <div class="synopsis-area">
+            <p class="detail-synopsis">{{ synopsis }}</p>
+        </div>
+    </section>
+
+    <div class="info-grid">
+    
+        <div class="info-block">
+            <h3>Elenco Principal:</h3>
+            <p class="info-list" *ngIf="actor?.length; else noActors">
+                <span *ngFor="let actorItem of actor; last as isLast">
+                    {{ actorItem.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+            </p>
+            <ng-template #noActors>
+                <p class="info-list empty-info">Informação de elenco indisponível.</p>
+            </ng-template>
+        </div>
+
+        <div class="info-block">
+            <h3>Gêneros:</h3>
+            <p class="info-list" *ngIf="categoryIds?.length; else noCategories">
+                <span *ngFor="let category of categoryIds; last as isLast">
+                    {{ category.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+            </p>
+            <ng-template #noCategories>
+                <p class="info-list empty-info">Gêneros não listados.</p>
+            </ng-template>
+        </div>
+
+        <div class="info-block">
+            <h3>Idiomas Disponíveis:</h3>
+            <p class="info-list" *ngIf="language?.length; else noLanguages">
+                <span *ngFor="let lang of language; last as isLast">
+                    {{ lang.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+            </p>
+            <ng-template #noLanguages>
+                <p class="info-list empty-info">Idioma principal não informado.</p>
+            </ng-template>
+        </div>
+
+        <div class="info-block">
+            <h3>Disponível em:</h3>
+            <p class="info-list" *ngIf="streamingsIds?.length; else noStreamings">
+                <span *ngFor="let streaming of streamingsIds; last as isLast">
+                    {{ streaming.name }}{{ !isLast ? ', ' : '' }}
+                </span>
+            </p>
+            <ng-template #noStreamings>
+                <p class="info-list empty-info">Nenhuma plataforma de streaming listada.</p>
+            </ng-template>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<body>
+    <div class="background-image"></div>
+    <div class="container">
+        <h1 class="logo">CinemaFlix</h1>
+
+        <div class="form-card">
+            <h2>Cadastre-se</h2>
+
+            <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+                
+                <div class="input-group">
+                    <label for="name">Nome Completo</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Seu nome completo"
+                        [(ngModel)]="user.name"
+                        #name="ngModel"
+                        required
+                    >
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="errorMessage">
+                        <div *ngIf="name.errors?.['required']">Nome completo é obrigatório.</div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Seu melhor email"
+                        [(ngModel)]="user.email"
+                        #email="ngModel"
+                        required
+                    >
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="errorMessage">
+                        <div *ngIf="email.errors?.['required']">Email é obrigatório.</div>
+                        <div *ngIf="email.errors?.['email']">Email inválido.</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="username">Nome de Usuário</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Escolha um nome de usuário"
+                        [(ngModel)]="user.username"
+                        #username="ngModel"
+                        required
+                    >
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="errorMessage">
+                        <div *ngIf="username.errors?.['required']">Nome de usuário é obrigatório.</div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Sua senha"
+                        [(ngModel)]="user.password"
+                        #password="ngModel"
+                        required
+                        minlength="6" >
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="errorMessage">
+                        <div *ngIf="password.errors?.['required']">Senha é obrigatória.</div>
+                        <div *ngIf="password.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</div>
+                    </div>
+                </div>
+
+                <div *ngIf="errorMessage" class="errorMessage server-error">
+                    {{ errorMessage }}
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="submit-btn" 
+                    [disabled]="registerForm.invalid" >
+                    Finalizar Cadastro
+                </button>
+            </form>
+            
+            <div class="alt-link">
+                Já tem conta? <a [routerLink]="['/']">Faça login.</a>
+            </div>
+        </div>
+    </div>
+</body>

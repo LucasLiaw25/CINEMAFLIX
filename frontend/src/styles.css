@@ -1,0 +1,47 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    /* Novo Paleta de Cores (Inspirada no Login) */
+    --primary-color: #8A2BE2; /* Roxo (Destaque Principal) */
+    --secondary-color: #FF69B4; /* Pink (Acento Gradiente) */
+    --dark-bg: #1A1A1A; /* <-- Mudei para um preto/cinza escuro, pois o layout da home funciona melhor em fundo escuro, mas mantive o roxo e pink nos detalhes. */
+    --header-bg: rgba(26, 26, 26, 0.95);
+    --card-bg: #2A2A2A; 
+    --text-color: #FFFFFF;
+    --text-muted: #B0B0B0;
+    --age-free: #38a169;
+    --age-14: #f6e05e;
+    --age-18: #e53e3e;
+    --rating-star: #FFD700;
+}
+
+/* ---------------------------------
+   GLOBAL - APLICAR VARIÁVEL DE FUNDO AQUI
+   --------------------------------- */
+body {
+    /* AGORA USANDO A VARIÁVEL: */
+    background-color: var(--dark-bg); 
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh; /* Garante que o fundo cubra a tela toda */
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.page-content-wrapper {
+    /* Certifique-se de que o CSS do wrapper NÃO tem background-color */
+    padding-top: 90px;
+    min-height: calc(100vh - 120px);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 90px 4% 60px 4%;
+}
